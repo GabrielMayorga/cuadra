@@ -13,7 +13,8 @@
     "db:start": "supabase start",
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
-    "db:status": "supabase status"
+    "db:status": "supabase status",
+    "db:verificar": "bash scripts/verificar.sh"
   },
   "dependencies": {
     "next": "16.4.3",
