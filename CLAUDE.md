@@ -14,6 +14,7 @@ Sistema web multisucursal de contabilidad y administración (arqueo de caja, ing
 - pnpm dev, pnpm build
 - pnpm test, pnpm typecheck
 - pnpm db:start, db:stop, db:reset, db:status
+- Datos de desarrollo: `pnpm db:reset` (migraciones + supabase/seed.sql: empresa, negocios, sucursales, cajas, módulos) y luego `pnpm db:seed-usuarios` (5 usuarios @example.test, uno por rol, contraseña `cuadra-dev-1234`). Requiere `.env.local` con NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY y SUPABASE_SERVICE_ROLE_KEY (valores de `pnpm db:status`). Tras cada reset hay que volver a correr db:seed-usuarios.
 
 ## Reglas
 - Dinero en centavos enteros, nunca floats. Se usa src/lib/money.ts (se crea en la Fase 1).
