@@ -14,9 +14,12 @@
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
     "db:status": "supabase status",
-    "db:verificar": "bash scripts/verificar.sh"
+    "db:verificar": "bash scripts/verificar.sh",
+    "db:seed-usuarios": "node --env-file=.env.local scripts/crear-usuarios-dev.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.118.0",
     "next": "16.4.3",
     "react": "19.3.0",
     "react-dom": "19.3.0"
