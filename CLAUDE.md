@@ -22,7 +22,7 @@ Sistema web multisucursal de contabilidad y administración (arqueo de caja, ing
 - Commits en español con Conventional Commits.
 
 ## Forma de trabajo
-- Gabriel ejecuta git y hace todos los commits. No hagas commits ni push.
+- Los commits sí se hacen: uno por pieza y solo cuando la verificación pasa. El push NUNCA se hace sin que Gabriel lo pida.
 - Antes de editar archivos, explica el plan y espera confirmación.
 - Si ves un error, un riesgo o una decisión débil, dilo antes de ejecutarlo y propón una alternativa.
 - Si algo es ambiguo, pregunta antes de suponer.
