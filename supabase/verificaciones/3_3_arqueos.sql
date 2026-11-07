@@ -135,7 +135,7 @@ insert into public.arqueos (empresa_id, caja_id, fecha) values (:eA, :caja21, :'
 insert into public.arqueos (empresa_id, caja_id, fecha) values (:eA, :caja21, :'hoy'::date - 3);
 select count(*) as arqueos_visibles from public.arqueos;
 
-\echo '=== 14. Empresa sin ninguna denominación activa: su contador abre un arqueo (OK) y envía el conteo (ERROR 14: la empresa no tiene denominaciones activas)'
+\echo '=== 13. Empresa sin ninguna denominación activa: su contador abre un arqueo (OK) y envía el conteo (ERROR 14: la empresa no tiene denominaciones activas)'
 :postgres
 insert into public.empresas (id, nombre) values ('00000000-0000-0000-0000-00000000000b', 'Empresa B');
 insert into public.negocios (id, empresa_id, nombre) values
@@ -152,7 +152,7 @@ reset role; set local role authenticated; do $$ begin perform set_config('reques
 insert into public.arqueos (empresa_id, caja_id) values ('00000000-0000-0000-0000-00000000000b', '00000000-0000-0000-0000-00000cf1b011');
 select public.enviar_conteo((select id from public.arqueos));
 
-\echo '=== 13. Bitácora (vista por el contador): arqueo_conteo insert Cajero A 17 | arqueos insert: Admin A 1, Cajero A 1, Contador A 1 | arqueos update: Cajero A 1 (envío), Contador A 1 (reapertura)'
+\echo '=== 14. Bitácora (vista por el contador): arqueo_conteo insert Cajero A 17 | arqueos insert: Admin A 1, Cajero A 1, Contador A 1 | arqueos update: Cajero A 1 (envío), Contador A 1 (reapertura)'
 :contador
 select b.tabla, b.operacion, p.nombre as perfil, count(*) as filas
 from public.bitacora b
