@@ -1,5 +1,5 @@
 -- Pieza 3-3: arqueos con conteo ciego, transiciones y bitácora.
--- esperado: errores=13
+-- esperado: errores=14
 -- Recordatorio: un UPDATE/DELETE sin política que lo permita NO lanza error: da "UPDATE 0"/"DELETE 0".
 -- Solo un INSERT negado por RLS, un RAISE de trigger/función o la falta de GRANT dan ERROR.
 \set ON_ERROR_ROLLBACK on
@@ -135,6 +135,23 @@ insert into public.arqueos (empresa_id, caja_id, fecha) values (:eA, :caja21, :'
 insert into public.arqueos (empresa_id, caja_id, fecha) values (:eA, :caja21, :'hoy'::date - 3);
 select count(*) as arqueos_visibles from public.arqueos;
 
+\echo '=== 14. Empresa sin ninguna denominación activa: su contador abre un arqueo (OK) y envía el conteo (ERROR 14: la empresa no tiene denominaciones activas)'
+:postgres
+insert into public.empresas (id, nombre) values ('00000000-0000-0000-0000-00000000000b', 'Empresa B');
+insert into public.negocios (id, empresa_id, nombre) values
+  ('00000000-0000-0000-0000-000000000f02', '00000000-0000-0000-0000-00000000000b', 'Negocio B1');
+insert into public.sucursales (id, empresa_id, negocio_id, codigo, nombre) values
+  ('00000000-0000-0000-0000-0000000f1b01', '00000000-0000-0000-0000-00000000000b', '00000000-0000-0000-0000-000000000f02', 'SB1', 'Suc B1');
+insert into public.cajas (id, empresa_id, sucursal_id, numero, nombre) values
+  ('00000000-0000-0000-0000-00000cf1b011', '00000000-0000-0000-0000-00000000000b', '00000000-0000-0000-0000-0000000f1b01', 1, 'Caja 1');
+insert into auth.users (id, email) values ('00000000-0000-0000-0000-0000000000c9', 'contadorb@example.test');
+insert into public.perfiles (id, empresa_id, nombre, rol) values
+  ('00000000-0000-0000-0000-0000000000c9', '00000000-0000-0000-0000-00000000000b', 'Contador B', 'contador');
+update public.empresa_denominaciones set activa = false where empresa_id = '00000000-0000-0000-0000-00000000000b';
+reset role; set local role authenticated; do $$ begin perform set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-0000000000c9', true); end $$;
+insert into public.arqueos (empresa_id, caja_id) values ('00000000-0000-0000-0000-00000000000b', '00000000-0000-0000-0000-00000cf1b011');
+select public.enviar_conteo((select id from public.arqueos));
+
 \echo '=== 13. Bitácora (vista por el contador): arqueo_conteo insert Cajero A 17 | arqueos insert: Admin A 1, Cajero A 1, Contador A 1 | arqueos update: Cajero A 1 (envío), Contador A 1 (reapertura)'
 :contador
 select b.tabla, b.operacion, p.nombre as perfil, count(*) as filas
@@ -146,4 +163,4 @@ order by b.tabla, b.operacion, p.nombre;
 
 rollback;
 
--- Cuenta final: ERROR esperados = 13 (los numerados arriba).
+-- Cuenta final: ERROR esperados = 14 (los numerados arriba).
