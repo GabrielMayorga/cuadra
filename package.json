@@ -15,6 +15,7 @@
     "db:reset": "supabase db reset",
     "db:status": "supabase status",
     "db:verificar": "bash scripts/verificar.sh",
+    "db:verificar-todo": "bash scripts/verificar-todo.sh",
     "db:seed-usuarios": "node --env-file=.env.local scripts/crear-usuarios-dev.ts"
   },
   "dependencies": {

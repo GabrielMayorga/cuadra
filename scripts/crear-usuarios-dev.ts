@@ -15,16 +15,16 @@ if (!/^https?:\/\/(127\.0\.0\.1|localhost)(:|\/|$)/.test(url)) {
 }
 
 const PASSWORD_DEV = 'cuadra-dev-1234' // solo desarrollo
-const EMPRESA = '00000000-0000-0000-0000-00000000e001'
-const SUC_FER1 = '00000000-0000-0000-0000-0000000a1a01'
+const EMPRESA = 'de000000-0000-0000-0000-00000000e001'
+const SUC_FER1 = 'de000000-0000-0000-0000-0000000a1a01'
 
 type Rol = 'dueno' | 'contador' | 'admin' | 'encargado' | 'cajero'
 const USUARIOS: { id: string; email: string; nombre: string; rol: Rol; sucursal?: string }[] = [
-  { id: '00000000-0000-0000-0000-0000000000d1', email: 'dueno@example.test', nombre: 'Dueño Ejemplo', rol: 'dueno' },
-  { id: '00000000-0000-0000-0000-0000000000c0', email: 'contador@example.test', nombre: 'Contador Ejemplo', rol: 'contador' },
-  { id: '00000000-0000-0000-0000-0000000000ad', email: 'admin@example.test', nombre: 'Admin Ejemplo', rol: 'admin' },
-  { id: '00000000-0000-0000-0000-0000000000e1', email: 'encargado@example.test', nombre: 'Encargado Ejemplo', rol: 'encargado', sucursal: SUC_FER1 },
-  { id: '00000000-0000-0000-0000-0000000000c1', email: 'cajero@example.test', nombre: 'Cajero Ejemplo', rol: 'cajero', sucursal: SUC_FER1 },
+  { id: 'de000000-0000-0000-0000-0000000000d1', email: 'dueno@dev.cuadra.test', nombre: 'Dueño Ejemplo', rol: 'dueno' },
+  { id: 'de000000-0000-0000-0000-0000000000c0', email: 'contador@dev.cuadra.test', nombre: 'Contador Ejemplo', rol: 'contador' },
+  { id: 'de000000-0000-0000-0000-0000000000ad', email: 'admin@dev.cuadra.test', nombre: 'Admin Ejemplo', rol: 'admin' },
+  { id: 'de000000-0000-0000-0000-0000000000e1', email: 'encargado@dev.cuadra.test', nombre: 'Encargado Ejemplo', rol: 'encargado', sucursal: SUC_FER1 },
+  { id: 'de000000-0000-0000-0000-0000000000c1', email: 'cajero@dev.cuadra.test', nombre: 'Cajero Ejemplo', rol: 'cajero', sucursal: SUC_FER1 },
 ]
 
 const supabase = createClient(url, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } })

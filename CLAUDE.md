@@ -14,9 +14,11 @@ Sistema web multisucursal de contabilidad y administración (arqueo de caja, ing
 - pnpm dev, pnpm build
 - pnpm test, pnpm typecheck
 - pnpm db:start, db:stop, db:reset, db:status
-- Datos de desarrollo: `pnpm db:reset` (migraciones + supabase/seed.sql: empresa, negocios, sucursales, cajas, módulos) y luego `pnpm db:seed-usuarios` (5 usuarios @example.test, uno por rol, contraseña `cuadra-dev-1234`). Requiere `.env.local` con NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY y SUPABASE_SERVICE_ROLE_KEY (valores de `pnpm db:status`). Tras cada reset hay que volver a correr db:seed-usuarios.
+- `pnpm db:verificar-todo`: db reset + usuarios de desarrollo + todas las verificaciones de supabase/verificaciones/ (OK/FALLA por archivo; sale con código 1 si alguna falla)
+- Datos de desarrollo: `pnpm db:reset` (migraciones + supabase/seed.sql: empresa, negocios, sucursales, cajas, módulos) y luego `pnpm db:seed-usuarios` (5 usuarios `<rol>@dev.cuadra.test`, uno por rol: dueno, contador, admin, encargado, cajero; contraseña `cuadra-dev-1234`). Requiere `.env.local` con NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY y SUPABASE_SERVICE_ROLE_KEY (valores de `pnpm db:status`). Tras cada reset hay que volver a correr db:seed-usuarios.
 
 ## Reglas
+- Convención de datos de prueba (nunca mezclar): el seed y los usuarios de desarrollo usan UUIDs con prefijo `de000000-` y correos `<rol>@dev.cuadra.test`; las verificaciones de supabase/verificaciones/ usan UUIDs con prefijo `00000000-` y correos `@example.test`. Así las verificaciones corren sobre la base sembrada sin chocar.
 - Dinero en centavos enteros, nunca floats. Se usa src/lib/money.ts (se crea en la Fase 1).
 - La llave de servicio de Supabase nunca lleva prefijo NEXT_PUBLIC_.
 - Commits en español con Conventional Commits.

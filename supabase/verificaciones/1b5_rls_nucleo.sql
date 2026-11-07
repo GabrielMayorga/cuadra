@@ -77,7 +77,7 @@ select count(*) as cajero_ve from public.periodos where empresa_id = :eA;
 :admin
 select count(*) as admin_ve from public.periodos where empresa_id = :eA;
 
-\echo '=== 14. Ni el contador borra un periodo (ERROR: sin GRANT DELETE, ni siquiera llega a RLS)'
+\echo '=== 14. Ni el contador borra un periodo (ERROR por falta de GRANT DELETE, ni siquiera llega a RLS)'
 :contador
 delete from public.periodos where empresa_id = :eA and anio = 2026 and mes = 2;
 
